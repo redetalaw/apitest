@@ -37,7 +37,7 @@ const test = async function() {
 		const country = revGeoJSON.countryName;
 		
 		//fetching data from 7timer API for weather report
-		const res = await fetch(`http://www.7timer.info/bin/api.pl?lon=${lng}&lat=${lat}&product=civillight&output=json`);
+		const res = await fetch(`https://www.7timer.info/bin/api.pl?lon=${lng}&lat=${lat}&product=civillight&output=json`);
 		if(!res.ok) throw new Error('7timer error');
 		
 		const weatherJSON = await res.json();
