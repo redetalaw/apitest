@@ -1,0 +1,13 @@
+body {
+  font-family: 'Manrope', sans-serif;
+  color: #aaa;
+  font-weight: 400;
+  line-height: 1.6;
+  height: 100vh;
+  overscroll-behavior-y: none;
+
+  background-color: #444;
+  padding: 2.5rem;
+
+  display: flex;
+}
