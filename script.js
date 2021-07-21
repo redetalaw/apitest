@@ -73,7 +73,11 @@ const formatDate = function(date) {
 	const month = dateStr.slice(4,6);
 	const day = dateStr.slice(6,8);
 	
-	return `${day}/${month}/${year}`;
+	const arrDay = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+	const dayWeek = new Date(`${month}/${day}/${year}`);
+	
+	
+	return `${day}/${month}/${year}, ${arrDay[dayWeek.getDay()]}`;
 }
 
 test();
