@@ -47,16 +47,15 @@ const test = async function() {
 		let html = `<p>7timer: 7 day weather forecast</p>
 					<p>BigDataCloud: Reverse Geolocation</p>
 					<hr>
-					<p>Current Location: ${city} - ${state} - ${country}</p>
-					<hr>`;
+					<p>Current Location: ${city} - ${state} - ${country}</p>`;
 
 		weather.forEach(function(item){
 			html += `
+				<hr>
 				<p>Date: ${formatDate(item.date)}</p>
 				<p>Weather: ${item.weather}</p>
 				<p>Max: ${item.temp2m.max}°C</p>
-				<p>Min: ${item.temp2m.min}°C</p>
-				<hr>`;
+				<p>Min: ${item.temp2m.min}°C</p>`;
 		});
 		
 		topBar.insertAdjacentHTML('beforeend', html);
