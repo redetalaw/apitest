@@ -46,6 +46,7 @@ const test = async function() {
 		
 		let html = `<p>7timer: 7 day weather forecast</p>
 					<p>BigDataCloud: Reverse Geolocation</p>
+					<hr>
 					<p>Current Location: ${city} - ${state} - ${country}</p>
 					<hr>`;
 
