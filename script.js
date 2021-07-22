@@ -23,8 +23,8 @@ const test = async function() {
 		
 		//decosntruct to rename variables
 		const {latitude: lat, longitude: lng} = pos.coords;
-		//const lat = 52.237049;
-		//const lng =  21.017532;
+		//const lat = -41.140176;
+		//const lng = -71.304965;
 		
 		//fetching data from reverse geolocation API 
 		const revGeo = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`);
@@ -44,18 +44,17 @@ const test = async function() {
 		const weather = weatherJSON.dataseries;
 		//console.log(weather);
 		
-		let html = `<p>7timer: 7 day weather forecast</p>
-					<p>BigDataCloud: Reverse Geolocation</p>
+		let html = `<p>7timer: 7 day weather forecast<br>
+					BigDataCloud: Reverse Geolocation</p>
 					<hr>
 					<p>Current Location: ${city} - ${state} - ${country}</p>`;
 
 		weather.forEach(function(item){
 			html += `
 				<hr>
-				<p>Date: ${formatDate(item.date)}</p>
-				<p>Weather: ${item.weather}</p>
-				<p>Max: ${item.temp2m.max}°C</p>
-				<p>Min: ${item.temp2m.min}°C</p>`;
+				<p>Date: ${formatDate(item.date)}<br>
+				Weather: ${item.weather}<br>
+				Min: ${item.temp2m.min}°C &nbsp &nbsp &nbsp Max: ${item.temp2m.max}°C</p>`;
 		});
 		
 		topBar.insertAdjacentHTML('beforeend', html);

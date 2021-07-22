@@ -7,7 +7,10 @@ body {
   overscroll-behavior-y: none;
 
   background-color: #444;
-  padding: 2.5rem;
+  padding: 15px;
+  
+  margin: 0px;
+  border: 0px;
 
   display: flex;
 }
