@@ -3,6 +3,8 @@
 const topBar = document.querySelector('.topbar');
 const errBar = document.querySelector('.errbar');
 
+const arrDay = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
 const getPosition = function () {
 	//returns a promise using the geolocation API that is not a promise
 	//but still is an asynchronous function
@@ -22,17 +24,17 @@ const test = async function() {
 		//console.log(pos)
 		
 		//decosntruct to rename variables
-		const {latitude: lat, longitude: lng} = pos.coords;
-		//const lat = -41.140176;
-		//const lng = -71.304965;
+		//const {latitude: lat, longitude: lng} = pos.coords;
+		const lat = -41.140176;
+		const lng = -71.304965;
 		
 		//fetching data from reverse geolocation API 
 		const revGeo = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`);
 		if(!revGeo.ok) throw new Error('Reverse geolocation error');
 		
 		const revGeoJSON = await revGeo.json();
-		//console.log(revGeoJSON);
-		const city = revGeoJSON.city;
+		console.log(revGeoJSON);
+		const city = revGeoJSON.city ? revGeoJSON.city : revGeoJSON.locality+ "*";
 		const state = revGeoJSON.principalSubdivision;
 		const country = revGeoJSON.countryName;
 		
@@ -42,12 +44,13 @@ const test = async function() {
 		
 		const weatherJSON = await res.json();
 		const weather = weatherJSON.dataseries;
-		//console.log(weather);
+		console.log(weather);
 		
 		let html = `<p>7timer: 7 day weather forecast<br>
 					BigDataCloud: Reverse Geolocation</p>
 					<hr>
-					<p>Current Location: ${city} - ${state} - ${country}</p>`;
+					<p>Current Location: ${city} - ${state} - ${country}<br>
+					<font size = "-2">* closest approximation, errors may occur</font></p>`;
 
 		weather.forEach(function(item){
 			html += `
@@ -72,9 +75,7 @@ const formatDate = function(date) {
 	const month = dateStr.slice(4,6);
 	const day = dateStr.slice(6,8);
 	
-	const arrDay = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 	const dayWeek = new Date(`${month}/${day}/${year}`);
-	
 	
 	return `${day}/${month}/${year}, ${arrDay[dayWeek.getDay()]}`;
 }
