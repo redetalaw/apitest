@@ -24,9 +24,9 @@ const test = async function() {
 		//console.log(pos)
 		
 		//decosntruct to rename variables
-		const {latitude: lat, longitude: lng} = pos.coords;
-		//const lat = -41.140176;
-		//const lng = -71.304965;
+		//const {latitude: lat, longitude: lng} = pos.coords;
+		const lat = -27.955804;
+		const lng = -49.876213;
 		
 		//fetching data from reverse geolocation API 
 		const revGeo = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`);
@@ -57,7 +57,7 @@ const test = async function() {
 				<hr>
 				<p>Date: ${formatDate(item.date)}<br>
 				Weather: ${item.weather}<br>
-				Min: ${item.temp2m.min}°C &nbsp &nbsp &nbsp Max: ${item.temp2m.max}°C</p>`;
+				Min: ${formatNumber(item.temp2m.min)}°C &nbsp &nbsp &nbsp Max: ${formatNumber(item.temp2m.max)}°C</p>`;
 		});
 		
 		topBar.insertAdjacentHTML('beforeend', html);
@@ -78,6 +78,13 @@ const formatDate = function(date) {
 	const dayWeek = new Date(`${month}/${day}/${year}`);
 	
 	return `${day}/${month}/${year}, ${arrDay[dayWeek.getDay()]}`;
+}
+
+const formatNumber = function(n) {
+	if (n < 10 && n > -1)
+		return (('0'+n).slice(-2))
+	else
+		return n;
 }
 
 test();
