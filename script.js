@@ -24,9 +24,9 @@ const test = async function() {
 		//console.log(pos)
 		
 		//decosntruct to rename variables
-		//const {latitude: lat, longitude: lng} = pos.coords;
-		const lat = -27.955804;
-		const lng = -49.876213;
+		const {latitude: lat, longitude: lng} = pos.coords;
+		//const lat = -27.955804;
+		//const lng = -49.876213;
 		
 		//fetching data from reverse geolocation API 
 		const revGeo = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`);
