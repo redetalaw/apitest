@@ -4,7 +4,7 @@ const topBar = document.querySelector('.topbar');
 const errBar = document.querySelector('.errbar');
 
 const arrDay = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
-const arrCond = {
+const condicoes = {
 	clearday: "limpo",
 	clearnight: "limpo",
 	pcloudyday: "nuvens esparsas",
@@ -79,7 +79,7 @@ const updateHtml = function(revGeoJSON, owmWeatherJSON) {
 				BigDataCloud: API de Geolocalização Reversa</p>
 				<hr>
 				<p>Localização*: ${city} - ${state} - ${country}<br>
-				<font size = "-2">* Aproximação, pode conter erros</font>
+				<font size = "-2">*Aproximação, pode conter erros</font>
 				<hr>
 				</p>`;
 
@@ -87,7 +87,7 @@ const updateHtml = function(revGeoJSON, owmWeatherJSON) {
 		html += `
 			<hr>
 			<p>Data: ${formatDate(formatTime(owmWeatherJSON.init, item.timepoint-3))}<br>
-			Tempo: ${arrCond[item.weather]}<br>
+			Tempo: ${condicoes[item.weather]}<br>
 			Temperatura: ${formatNumber(item.temp2m)}°C &nbsp &nbsp Umidade: ${item.rh2m}</p>`;
 	});
 	
