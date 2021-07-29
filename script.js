@@ -73,7 +73,6 @@ const updateHtml = function(revGeoJSON, weatherJSON) {
 	const state = revGeoJSON.principalSubdivision;
 	const country = revGeoJSON.countryName;
 	const weather = weatherJSON.dataseries;
-	const initialTime = formatTime(weatherJSON.init);
 	
 	let html = `<p>7timer: API de Previsão de Tempo<br>
 				BigDataCloud: API de Geolocalização Reversa</p>
@@ -128,6 +127,7 @@ const main = async function() {
 	}
 	catch (err) {
 		console.log(err.message)
+		errBar.insertAdjacentHTML('beforeend', 'Houve um erro');
 	}
 }
 
