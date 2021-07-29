@@ -14,7 +14,7 @@ const condicoes = {
 	cloudyday: "nublado",
 	cloudynight: "nublado",
 	humidday: "parcialmente nublado ",
-	humidnight: "parcilamente nublado",
+	humidnight: "parcialmente nublado",
 	lightrainday: "chuvas leves",
 	lightrainnight: "chuvas leves",
 	oshowerday: "chuvas ocasionais",
@@ -41,8 +41,8 @@ const getNavPos = function() {
 	});
 }
 
-// const lat = 41.151193;
-// const lng = -8.611131;
+//const lat = 61.606546;
+//const lng = -6.962617;
 
 const getWeatherJSON = async function(navPos) {
 	try {
