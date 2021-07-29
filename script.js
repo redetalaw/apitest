@@ -47,9 +47,9 @@ const getNavPos = function() {
 const getWeatherJSON = async function(navPos) {
 	try {
 		const {latitude: lat, longitude: lng} = navPos.coords;
-		const owmWeather = await fetch(`https://www.7timer.info/bin/api.pl?lon=${lng}&lat=${lat}&product=civil&output=json`);
-		const owmWeatherJSON = await owmWeather.json();
-		return owmWeatherJSON;
+		const weather = await fetch(`https://www.7timer.info/bin/api.pl?lon=${lng}&lat=${lat}&product=civil&output=json`);
+		const weatherJSON = await weather.json();
+		return weatherJSON;
 	} 
 	catch (err) {
 		console.log(err.message);
@@ -59,21 +59,21 @@ const getWeatherJSON = async function(navPos) {
 const getGeoJSON = async function(navPos) {
 	try {
 		const {latitude: lat, longitude: lng} = navPos.coords;
-		const owmRev = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=pt`);
-		const owmRevJSON = await owmRev.json();
-		return owmRevJSON;
+		const revGeo = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=pt`);
+		const revGeoJSON = await revGeo.json();
+		return revGeoJSON;
 	}
 	catch (err) {
 		console.log(err.message);
 	}
 }
 
-const updateHtml = function(revGeoJSON, owmWeatherJSON) {
+const updateHtml = function(revGeoJSON, weatherJSON) {
 	const city = revGeoJSON.city ? revGeoJSON.city : revGeoJSON.locality + "*";
 	const state = revGeoJSON.principalSubdivision;
 	const country = revGeoJSON.countryName;
-	const weather = owmWeatherJSON.dataseries;
-	const initialTime = formatTime(owmWeatherJSON.init);
+	const weather = weatherJSON.dataseries;
+	const initialTime = formatTime(weatherJSON.init);
 	
 	let html = `<p>7timer: API de Previsão de Tempo<br>
 				BigDataCloud: API de Geolocalização Reversa</p>
@@ -86,7 +86,7 @@ const updateHtml = function(revGeoJSON, owmWeatherJSON) {
 	weather.forEach(function(item){
 		html += `
 			<hr>
-			<p>Data: ${formatDate(formatTime(owmWeatherJSON.init, item.timepoint-3))}<br>
+			<p>Data: ${formatDate(formatTime(weatherJSON.init, item.timepoint-3))}<br>
 			Tempo: ${condicoes[item.weather]}<br>
 			Temperatura: ${formatNumber(item.temp2m)}°C &nbsp &nbsp Umidade: ${item.rh2m}</p>`;
 	});
