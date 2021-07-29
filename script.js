@@ -41,8 +41,8 @@ const getNavPos = function() {
 	});
 }
 
-//const lat = -27.954183;
-//const lng = -49.877898;
+// const lat = 41.151193;
+// const lng = -8.611131;
 
 const getWeatherJSON = async function(navPos) {
 	try {
@@ -80,7 +80,6 @@ const updateHtml = function(revGeoJSON, weatherJSON) {
 				<hr>
 				<p>Localização*: ${city} - ${state} - ${country}<br>
 				<font size = "-2">*Aproximação, pode conter erros</font>
-				<hr>
 				</p>`;
 
 	weather.forEach(function(item){
