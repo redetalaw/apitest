@@ -70,6 +70,7 @@ const getGeoJSON = async function(navPos) {
 
 const updateHtml = function(revGeoJSON, weatherJSON) {
 	const city = revGeoJSON.city ? revGeoJSON.city : revGeoJSON.locality + "*";
+	const localInfo = revGeoJSON.localityInfo.informative ? revGeoJSON.localityInfo.informative[revGeoJSON.localityInfo.informative.length - 1].name : "";
 	const state = revGeoJSON.principalSubdivision;
 	const country = revGeoJSON.countryName;
 	const weather = weatherJSON.dataseries;
@@ -77,7 +78,8 @@ const updateHtml = function(revGeoJSON, weatherJSON) {
 	let html = `<p>7timer: API de Previsão de Tempo<br>
 				BigDataCloud: API de Geolocalização Reversa</p>
 				<hr>
-				<p>Localização*: ${city} - ${state} - ${country}<br>
+				<p>Localização*: ${city} - ${state} - ${country}<br> 
+				${localInfo}<br>
 				<font size = "-2">*Aproximação, pode conter erros</font>
 				</p>`;
 
@@ -104,12 +106,14 @@ const formatTime = function(date, offset = 0) {
 	const day = date.slice(6,8);
 	const hour = date.slice(-2);
 	
-	const d = new Date(Number(year), Number(month)-1, Number(day), Number(hour) + offset, 0, 0);
-	
-	return d;
+	//const d = new Date(Number(year), Number(month)-1, Number(day), Number(Number(hour) + Number(offset)), 0, 0);
+	return new Date(Number(year), Number(month)-1, Number(day), Number(Number(hour) + Number(offset)), 0, 0);
+	//return d;
 }
 
 const formatNumber = function(n) {
+	// returns a number preceded by 0 if number < 10
+	// ex: 9 -> 09 | 3 -> 03 | 15 -> 15
 	if (n < 10 && n > -1)
 		return (('0'+n).slice(-2))
 	else
@@ -118,9 +122,11 @@ const formatNumber = function(n) {
 
 const main = async function() {
 	try {
+		//let testpos = { coords: { latitude: -7.638433, longitude: -40.531606 } };
 		const navPos = await getNavPos();
 		const geo = await getGeoJSON(navPos);
 		const weath = await getWeatherJSON(navPos);
+		
 		console.log(navPos, geo, weath);
 		
 		updateHtml(geo, weath);
