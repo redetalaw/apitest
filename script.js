@@ -69,16 +69,18 @@ const getGeoJSON = async function(navPos) {
 }
 
 const updateHtml = function(revGeoJSON, weatherJSON) {
-	const city = revGeoJSON.city ? revGeoJSON.city : revGeoJSON.locality + "*";
-	const localInfo = revGeoJSON.localityInfo.informative ? revGeoJSON.localityInfo.informative[revGeoJSON.localityInfo.informative.length - 1].name : "";
-	const state = revGeoJSON.principalSubdivision;
-	const country = revGeoJSON.countryName;
+	const city = revGeoJSON.city ? revGeoJSON.city : "***";
+	const locality = revGeoJSON.locality ?  revGeoJSON.locality : "***";
+	const localInfo = revGeoJSON.localityInfo.administrative ? revGeoJSON.localityInfo.administrative[revGeoJSON.localityInfo.administrative.length - 1].name : "***";
+	const state = revGeoJSON.principalSubdivision ? revGeoJSON.principalSubdivision : "***";
+	const country = revGeoJSON.countryName ? revGeoJSON.countryName : "***";
 	const weather = weatherJSON.dataseries;
 	
 	let html = `<p>7timer: API de Previsão de Tempo<br>
 				BigDataCloud: API de Geolocalização Reversa</p>
 				<hr>
 				<p>Localização*: ${city} - ${state} - ${country}<br> 
+				${locality}<br>
 				${localInfo}<br>
 				<font size = "-2">*Aproximação, pode conter erros</font>
 				</p>`;
